@@ -65,20 +65,15 @@ router.delete("/:id",verify,async(req,res)=>{
 
 //GET
 
-router.delete("/:id",verify,async(req,res)=>{
-    if(req.user.isAdmin)
-    {
+router.get("/:id",verify,async(req,res)=>{
+   
        try{
-        await Movie.findByIdAndDelete(req.params.id);
-         res.status(200).json("The Movie has been deleted");
+        const movie=await Movie.findById(req.params.id);
+         res.status(200).json(movie);
        }catch(err){
            res.status(500).json(err);
        }
-    }
-    else
-    {
-       res.status(403).json("You are not allowed!");
-    }
+    
 });
 
 module.exports=router;
